@@ -2,7 +2,7 @@ import math
 from typing import Tuple, Dict
 from kesslergame import KesslerController
 import numpy as np
-from func import angle360
+from func import *
 from kesslergame import Ship
 
 
@@ -24,8 +24,8 @@ class Controller(KesslerController):
         """
         Create your fuzzy logic controllers and other objects here
         """
-        left1 = gene[0] 
-        left2 = gene[1] 
+        left1 = gene[0]
+        left2 = gene[1]
         center = gene[2]
         right2 = gene[3]
         right1 = gene[4]
