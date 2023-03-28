@@ -13,14 +13,16 @@ class Controller(KesslerController):
         game to operate within scenarios. A valid controller contains an actions method that takes in a ship object and ass
         game_state dictionary. This action method then sets the thrust, turn_rate, and fire commands on the ship object.
         """
+
     def __init__(self):
-        gene = [-164.53175401560333, -53.11381500132402, 99.55962719106978, 652.0695605148196, 958.2536948627446, 113.17313354331807]
-        genes2 = [-422.98248909, -128.46239109, 395.65025775, -339.31340805, -82.99984531,
-                157.18145777, 94.03193966, 74.20410544, -141.6155565, 66.7441948,
-                105.5832539, 136.26770441, 440.24368511, -32.15986455, -269.37155599,
-                -3.07185922, 180.88739761, -17.52924744, -11.0651477, 105.48644365,
-                25.6119877, 56.20575568, 85.31037087, 156.41788735, 13.28000091,
-                75.04230663, 145.83883738, -5.34633099, 79.93202705, 170.01952603, ]
+        gene = [-452.98248909, -128.46239109, 365.65025775, -389.31340805, -122.99984531,
+                    147.18145777, -104.03193966, 74.20410544, -141.6155565, 66.7441948,
+                    105.5832539, 136.26770441, 440.24368511, -32.15986455, -269.37155599,
+                    23.07185922, 180.88739761, 47.52924744, 11.0651477, 105.48644365,
+                    25.6119877, 56.20575568, 85.31037087, 156.41788735, 13.28000091,
+                    75.04230663, 145.83883738, 5.34633099, 79.93202705, 170.01952603, ]
+        genes2 = [-164.53175401560333, -53.11381500132402, 99.55962719106978, 652.0695605148196, 958.2536948627446,
+                113.17313354331807]
         """
         Create your fuzzy logic controllers and other objects here
         """
@@ -145,7 +147,7 @@ class Controller(KesslerController):
 
         angdiff_front = min(aalist, key=abs)
         angdiff = aalist[0]
-        fire_bullet = abs(angdiff_front) < 10 and min(dist_list1) < 400
+        fire_bullet = abs(angdiff_front) < 15 and min(dist_list1) < 400
         avoidance = np.min(dist_avoid_list)
 
         if len(input_data['ships']) >= 2:
