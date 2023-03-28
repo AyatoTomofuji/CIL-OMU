@@ -15,14 +15,14 @@ class Controller(KesslerController):
         """
 
     def __init__(self):
-        gene = [-53.71158152120384, -20.34211906668731, 124.054826312119, 680.9674753897489, 897.1767799599434,
-                66.75922437009169]
-        genes2 = [-452.98248909, -178.46239109, 395.65025775, -392.31340805, -82.99984531,
-                  157.18145777, 134.03193966, 74.20410544, -141.6155565, 156.7441948,
-                  105.5832539, 136.26770441, 440.24368511, -32.15986455, -269.37155599,
-                  -12.07185922, 180.88739761, -47.52924744, -33.0651477, 105.48644365,
-                  75.6119877, 96.20575568, 85.31037087, 156.41788735, 13.28000091,
-                  75.04230663, 145.83883738, -14.34633099, 79.93202705, 170.01952603, ]
+        genes2 = [-422.56833678, -128.5440438, 390.55000786, -389.1460838, -79.66763919,
+                157.80320246, 94.08457887, 73.67425189, 129.10263867, 126.69284636,
+                108.57530471, 161.21374993, 440.06088036, -32.43618814, -269.25471835,
+                23.97717829, 179.54120818, 180, 11.01848299, 105.48515518,
+                124.83245825, 60.12989947, 84.42780692, 155.87859715, 12.61680382,
+                74.824144, 145.83796102, -5.56917356, 79.90114877, 170.21185764, ]
+        gene = [-164.53175401560333, 0.11381500132402, 99.55962719106978, 652.0695605148196, 958.2536948627446,
+                113.17313354331807]
         """
         Create your fuzzy logic controllers and other objects here
         """
@@ -147,10 +147,10 @@ class Controller(KesslerController):
 
         angdiff_front = min(aalist, key=abs)
         angdiff = aalist[0]
-        fire_bullet = abs(angdiff_front) < 10 and min(dist_list1) < 400
+        fire_bullet = abs(angdiff_front) < 15 and min(dist_list1) < 400
         avoidance = np.min(dist_avoid_list)
 
-        if len(input_data['ships']) == 2:
+        if len(input_data['ships']) >= 2:
             angle_ships = ast_angle(ownship['position'], input_data['ships'][2 - ownship['id']]['position'])
             dist = math.dist(ownship['position'], input_data['ships'][2 - ownship['id']]['position'])
             if (dist <= avoidance):
@@ -160,7 +160,8 @@ class Controller(KesslerController):
                     angle_ships += 360
                 avoidance = dist
                 angdiff = abs(angle_ships)
-
+                print(dist)
+                print(angle_ships)
 
         rule = self.mems(avoidance, angdiff)
 
