@@ -16,11 +16,11 @@ class Controller(KesslerController):
 
     def __init__(self):
         genes2 = [-422.56833678, -128.5440438, 390.55000786, -389.1460838, -79.66763919,
-                157.80320246, 94.08457887, 73.67425189, 129.10263867, 126.69284636,
-                108.57530471, 161.21374993, 440.06088036, -32.43618814, -269.25471835,
-                23.97717829, 179.54120818, 180, 11.01848299, 105.48515518,
-                124.83245825, 60.12989947, 84.42780692, 155.87859715, 12.61680382,
-                74.824144, 145.83796102, -5.56917356, 79.90114877, 170.21185764, ]
+                  157.80320246, 94.08457887, 73.67425189, 129.10263867, 126.69284636,
+                  108.57530471, 161.21374993, 440.06088036, -32.43618814, -269.25471835,
+                  23.97717829, 179.54120818, 180, 11.01848299, 105.48515518,
+                  124.83245825, 60.12989947, 84.42780692, 155.87859715, 12.61680382,
+                  74.824144, 145.83796102, -5.56917356, 79.90114877, 170.21185764, ]
         gene = [-164.53175401560333, 0.11381500132402, 99.55962719106978, 652.0695605148196, 958.2536948627446,
                 113.17313354331807]
         """
@@ -160,14 +160,15 @@ class Controller(KesslerController):
                     angle_ships += 360
                 avoidance = dist
                 angdiff = abs(angle_ships)
-                print(dist)
-                print(angle_ships)
 
         rule = self.mems(avoidance, angdiff)
 
         thrust = rule[0]
         turn_rate = rule[1] * np.sign(angdiff)
-
+        if ownship["speed"] >= 0:
+            self.str_move = "Moving forward"
+        else:
+            self.str_move = "Moving backward"
         if thrust > ownship['thrust_range'][1]:
             thrust = ownship['thrust_range'][1]
         elif thrust < ownship['thrust_range'][0]:
@@ -182,3 +183,7 @@ class Controller(KesslerController):
     @property
     def name(self) -> str:
         return "OMU-Let's"
+
+    @property
+    def explanation(self) -> str:
+        return self.str_move
