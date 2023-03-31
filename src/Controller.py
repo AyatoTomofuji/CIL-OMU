@@ -5,8 +5,6 @@ import numpy as np
 from func import *
 from kesslergame import Ship
 
-
-# 距離5分割
 class Controller(KesslerController):
     """
          A ship controller class for Kessler. This can be inherited to create custom controllers that can be passed to the
@@ -150,16 +148,27 @@ class Controller(KesslerController):
         fire_bullet = abs(angdiff_front) < 15 and min(dist_list1) < 400
         avoidance = np.min(dist_avoid_list)
 
-        if len(input_data['ships']) >= 2:
-            angle_ships = ast_angle(ownship['position'], input_data['ships'][2 - ownship['id']]['position'])
-            dist = math.dist(ownship['position'], input_data['ships'][2 - ownship['id']]['position'])
-            if (dist <= avoidance):
-                if angle_ships > 180:
-                    angle_ships -= 360
-                elif angle_ships < -180:
-                    angle_ships += 360
-                avoidance = dist
-                angdiff = abs(angle_ships)
+        if len(input_data['ships']) == 2:
+            if ownship['id'] == 1:
+                angle_ships = ast_angle(ownship['position'], input_data['ships'][1]['position'])
+                dist = math.dist(ownship['position'], input_data['ships'][1]['position'])
+                if (dist <= avoidance):
+                    if angle_ships > 180:
+                        angle_ships -= 360
+                    elif angle_ships < -180:
+                        angle_ships += 360
+                    avoidance = dist
+                    angdiff = abs(angle_ships)
+            elif ownship['id'] == 2:
+                angle_ships = ast_angle(ownship['position'], input_data['ships'][0]['position'])
+                dist = math.dist(ownship['position'], input_data['ships'][0]['position'])
+                if (dist <= avoidance):
+                    if angle_ships > 180:
+                        angle_ships -= 360
+                    elif angle_ships < -180:
+                        angle_ships += 360
+                    avoidance = dist
+                    angdiff = abs(angle_ships)
 
         rule = self.mems(avoidance, angdiff)
 
